@@ -4,9 +4,8 @@
 #include "Bullet.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Enemy.h"
-#include "Engine/BlockingVolume.h"
-#include <EnemySpawn.h>
 #include <Kismet/GameplayStatics.h>
+#include "Engine/BlockingVolume.h"
 
 // Sets default values
 ABullet::ABullet()
@@ -52,8 +51,9 @@ void ABullet::NotifyActorBeginOverlap(AActor* OtherActor)
 		Destroy();
 	}
 	else if(Cast<ABlockingVolume>(OtherActor))
-	{
-		Destroy();
-	}
+    {
+        Destroy();
+    }
+
 }
 

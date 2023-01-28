@@ -8,7 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "SpaceShip.h"
 #include "Kismet/KismetMathLibrary.h"
-#include <ShipGameMode.h>
+#include <SpaceShipGameMode.h>
 #include <EnemySpawn.h>
 
 // Sets default values
@@ -41,7 +41,7 @@ void AEnemy::BeginPlay()
 	
 	SpaceShip = Cast<ASpaceShip>(UGameplayStatics::GetPlayerPawn(this, 0));
 
-	ShipGameMode = Cast<AShipGameMode>(UGameplayStatics::GetGameMode(this));
+	SpaceShipGameMode = Cast<ASpaceShipGameMode>(UGameplayStatics::GetGameMode(this));
 
 	TArray<AActor *> SpawnEnemyArray;
 	UGameplayStatics::GetAllActorsOfClass(this, AEnemySpawn::StaticClass(), SpawnEnemyArray);
@@ -58,10 +58,10 @@ void AEnemy::Init()
 
 void AEnemy::MoveTowardPlayer(float DeltaTime)
 {
-	// Update direction
+	// Update enemy movement direction
 	FVector Direction = (SpaceShip->GetActorLocation() - GetActorLocation()).GetSafeNormal();
 	AddActorWorldOffset(Direction * DeltaTime * Speed, true);
-	// Update rotation
+	// Update enemy movement rotation
 	FRotator Rotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), SpaceShip->GetActorLocation());
 	SetActorRotation(Rotation);
 }
@@ -84,14 +84,14 @@ void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void AEnemy::OnDeath()
 {
-	ShipGameMode->IncreaseScore();
+	SpaceShipGameMode->IncreaseScore();
 	EnemySpawn->DecreaseEnemyCount();
-	/* 
-	if (ExplosionParticle)
-	{
-		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticle, GetActorLocation(), FRotator::ZeroRotator, true);
-	}
-	*/
+	// Explosion effect
+	// if (ExplosionParticle)
+	// {
+	// 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticle, GetActorLocation(), FRotator::ZeroRotator, true);
+	// }
+	
 	SpawnExplosion();
 	Destroy();
 }

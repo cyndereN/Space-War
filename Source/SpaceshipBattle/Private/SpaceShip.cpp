@@ -1,3 +1,6 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
 #include "SpaceShip.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
@@ -26,10 +29,11 @@ ASpaceShip::ASpaceShip()
 	// RootSceneComp = CreateDefaultSubobject<USceneComponent>(TEXT("RootComp"));
 	// RootComponent = RootSceneComp;
 
-	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("EnemyCollisionComp"));
+	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionComp"));
 	// CollisionComp->SetupAttachment(RootComponent);
+	CollisionComp->SetSphereRadius(100);
 	RootComponent = CollisionComp;
-	// Cannot modify rotation or scale if SM is root
+
 	ShipSM = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ShipSM"));
 	// ShipSM->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	ShipSM->SetRelativeRotation(FRotator(0, 270, 0));
@@ -69,9 +73,9 @@ void ASpaceShip::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	// Get Controller
+	// Get controller
 	PC = Cast<APlayerController>(GetController());
-	// Show curser
+	// Get mouse cursor
 	PC->bShowMouseCursor = true;
 	
 }
@@ -85,11 +89,11 @@ void ASpaceShip::Init()
 
 void ASpaceShip::LookAtCursor()
 {
-	// Get MouseLocation and project it to World location
+	// Get cursor transform
 	FVector MouseLocation, MosueDirection, TargetLocation;
 	PC->DeprojectMousePositionToWorld(MouseLocation, MosueDirection);
 	TargetLocation = FVector(MouseLocation.X, MouseLocation.Y, GetActorLocation().Z);
-	// Get rotation from one coordination to another
+	// Get angle from one location of another
 	FRotator LookAtRotator = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), TargetLocation);
 	SetActorRotation(LookAtRotator);
 }
@@ -97,7 +101,6 @@ void ASpaceShip::LookAtCursor()
 void ASpaceShip::Move(float DeltaTime)
 {
 	AddActorWorldOffset(ConsumeMovementInputVector()*Speed*DeltaTime, true);
-	// FApp::GetDeltaTime();
 }
 
 void ASpaceShip::MoveForward(float Value)

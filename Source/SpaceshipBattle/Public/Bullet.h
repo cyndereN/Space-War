@@ -26,7 +26,6 @@ protected:
 
 protected:
 
-	// Like an Empty Game Object in Unity
 	UPROPERTY(VisibleAnywhere, Category = "Component")
 		USceneComponent *RootSceneComp;
 

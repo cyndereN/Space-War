@@ -10,7 +10,7 @@ class USceneComponent;
 class USphereComponent;
 class UStaticMeshComponent;
 class ASpaceShip;
-class AShipGameMode;
+class ASpaceShipGameMode;
 class AEnemySpawn;
 
 UCLASS()
@@ -35,12 +35,13 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
 		UStaticMeshComponent *EnemySM;
 
+	// Particle effect of explosion
 	UPROPERTY(EditAnywhere, Category = "Particle")
 		UParticleSystem* ExplosionParticle;
 
 	ASpaceShip *SpaceShip;
 
-	AShipGameMode *ShipGameMode;
+	ASpaceShipGameMode *SpaceShipGameMode;
 
 	AEnemySpawn *EnemySpawn;
 
@@ -57,10 +58,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	// Generate Random Color
+	// Random enemy color
 	UFUNCTION(BlueprintImplementableEvent)
 		void SetColor();
-
 	UFUNCTION(BlueprintImplementableEvent)
 		void SpawnExplosion();
 
@@ -69,6 +69,6 @@ public:
 public:
 
 	UPROPERTY(EditAnywhere, Category = "Default")
-		float Speed;
+	float Speed;
 
 };

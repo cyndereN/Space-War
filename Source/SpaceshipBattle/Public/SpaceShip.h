@@ -33,18 +33,17 @@ protected:
 	// Initialization
 	void Init();
 
-	// Look direction when flying
+	// Ship rotation changes with mouse cursor
 	void LookAtCursor();
 
 	void Move(float DeltaTime);
 
-	// Move up and down
+	// Up and down
 	void MoveForward(float Value);
 
-	// Move left and right
+	// Left and right
 	void MoveRight(float Value);
 
-	// Fire projectiles
 	void Fire();
 
 	void StartFire();
@@ -56,8 +55,7 @@ protected:
 	void OnDeath();
 
 protected:
-	
-	// Expose to BluePrintClass and Instances
+
 	UPROPERTY(VisibleAnywhere, Category = "Component")
 		USceneComponent *RootSceneComp;
 
@@ -67,7 +65,6 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Component")
 		UStaticMeshComponent *ShipSM;
 
-	// Prevent camera from rotating with pawn
 	UPROPERTY(VisibleAnywhere, Category = "Component")
 		USpringArmComponent *SpringComp;
 
@@ -79,8 +76,7 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Component")
 		UParticleSystemComponent *ThrusterParticleComp;
-
-	// Particle after blown up
+	
 	UPROPERTY(EditAnywhere, Category = "Particle")
 		UParticleSystem* ExplosionParticle;
 
@@ -92,8 +88,9 @@ protected:
 
 	bool bDead;
 
+	// whether the ship is moving
 	bool bForwardMove;
-
+	
 	bool bRightMove;
 
 public:	
@@ -118,10 +115,11 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Default")
 		float BetweenShot;
 
-	// sounds
+	// Explosion effect
 	UPROPERTY(EditAnywhere, Category = "Sound")
 		USoundCue *GameOverCue;
 
+	// Firing sound effect
 	UPROPERTY(EditAnywhere, Category = "Sound")
 		USoundCue *ShootCue;
 

@@ -41,11 +41,11 @@ protected:
 
 	FTimerHandle TimerHandle_Spawn;
 
-	// Constraints on number of enemy
+	// Maximum number of enemy
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnemySpawn")
 		int MaxEnemyNum;
 
-	// Current number
+	// 已生成数目
 	UPROPERTY(BlueprintReadOnly, Category = "EnemySpawn")
 		int CurrentEnemyCount;
 
@@ -60,11 +60,11 @@ public:
 	UPROPERTY(EditAnywhere, Category = Enemy)
 		TSubclassOf<AEnemy> Enemy;
 
-	// Spawn enemy out of distance
+	// Minimum distance from spawn point to player
 	UPROPERTY(EditAnywhere, Category = "Default")
 		float MinimumDistanceToPlayer;
 
-	// Spawn interval
+	// Interval of enemy spawn time
 	UPROPERTY(EditAnywhere, Category = "Default")
-		float SpawnIntVal;
+		float SpawnInterval;
 };

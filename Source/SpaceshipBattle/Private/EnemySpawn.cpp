@@ -10,7 +10,6 @@
 #include "Engine/World.h"
 #include "Enemy.h"
 #include "TimerManager.h"
-#include "DrawDebugHelpers.h"
 
 
 // Sets default values
@@ -34,18 +33,19 @@ void AEnemySpawn::BeginPlay()
 	
 	Init();
 
-	GetWorldTimerManager().SetTimer(TimerHandle_Spawn, this, &AEnemySpawn::SpawnEnemy, SpawnIntVal, true, 0.0f);
+	GetWorldTimerManager().SetTimer(TimerHandle_Spawn, this, &AEnemySpawn::SpawnEnemy, SpawnInterval, true, 0.0f);
 }
 
 void AEnemySpawn::Init()
 {
+	// Default distance to player
 	MinimumDistanceToPlayer = 1200.0;
 
-	// Initialize player pawn
+	// Initialization
 	SpaceShip = Cast<ASpaceShip>(UGameplayStatics::GetPlayerPawn(this, 0));
 
-	// Default
-	SpawnIntVal = 2.0f;
+	// Default spawn interval
+	SpawnInterval = 2.0f;
 
 	MaxEnemyNum = 30;
 
@@ -88,7 +88,7 @@ void AEnemySpawn::DecreaseEnemyCount()
 	if (CurrentEnemyCount > 0)
 	{
 		CurrentEnemyCount--;
-		UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::SanitizeFloat(CurrentEnemyCount));
+		// UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::SanitizeFloat(CurrentEnemyCount));
 	}
 }
 
